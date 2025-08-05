@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+Marcas - SGE
+{% endblock %}
+
+{% block content %}
+<div class="table-responsive">
+   <table class="table tabel-striped table-bordered">
+      <thead class="thead-dark">
+         <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for brand in brands %}
+         <tr>
+            <td>{{ brand.id }}</td>
+            <td>{{ brand.name }}</td>
+            <td>{{ brand.dresciption }}</td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</div>
+{% endblock %}

@@ -4,4 +4,5 @@ from brands.models import Brand
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
-    list_display = 'name description created_at updated_at'.split(' ')
+    list_display = 'name description'.split(' ')
+    search_fields = ('name',)

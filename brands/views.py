@@ -6,7 +6,10 @@ from django.urls import reverse_lazy
 class BrandListView(ListView):
     model = models.Brand
     template_name = 'brand_list.html'
-    context_object_name = 'brands'  # usado ao inves de mandar o `render`
+    context_object_name = 'brands'
+    # 'context_object_name' usado ao inves de mandar o `render`
+    paginate_by = 10
+    # 'paginate_by' não pode mostrar mais de (neste caso) 10 nomes da lista
 
     def get_queryset(self):
         '''
@@ -38,7 +41,7 @@ class BrandUpdateView(UpdateView):
     model = models.Brand
     form_class = forms.BrandForm
     template_name = 'brand_update.html'
-    success_url = reverse_lazy('brands_list.html')
+    success_url = reverse_lazy('brands_list')
 
 
 class BrandDeleteView(DeleteView):

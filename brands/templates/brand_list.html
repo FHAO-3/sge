@@ -17,6 +17,14 @@ Lista de Marcas
          </div>
       </form>
    </div>
+
+   <div class="col-md-6">
+      <a href="{% url 'brand_create' %}" class="btn btn-success float-end">
+         Adicionar nova marca
+         <i class="bi bi-plus"></i>
+      </a>
+   </div>
+
 </div>
 
 <div class="table-responsive">
@@ -26,6 +34,7 @@ Lista de Marcas
             <th>ID</th>
             <th>Nome</th>
             <th>Descrição</th>
+            <th>Ações</th>
          </tr>
       </thead>
       <tbody>
@@ -34,6 +43,17 @@ Lista de Marcas
             <td>{{ brand.id }}</td>
             <td>{{ brand.name }}</td>
             <td>{{ brand.description }}</td>
+            <td>
+               <a href="{% url 'brands_detail' brand.id %}" class="btn btn-info btn-sm">
+                  <i class="bi bi-eye"></i>
+               </a>
+               <a href="{% url 'brands_update' brand.id %}" class="btn btn-warning btn-sm">
+                  <i class="bi bi-pencil"></i>
+               </a>
+               <a href="{% url 'brands_delete' brand.id %}" class="btn btn-danger btn-sm">
+                  <i class="bi bi-trash"></i>
+               </a>
+            </td>
          </tr>
          {% endfor %}
       </tbody>

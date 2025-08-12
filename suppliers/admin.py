@@ -4,4 +4,5 @@ from suppliers.models import Supplier
 
 @admin.register(Supplier)
 class SupplierAdmin(admin.ModelAdmin):
-    list_display = 'name description created_at updated_at'.split(' ')
+    list_display = ('name', 'description')
+    search_fields = ('name',)

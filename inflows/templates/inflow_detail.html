@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Detalhes {{ object.product }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+   <h3 class="display-6"> Detalhes {{ object.product }}</h3>
+   <div class="card">
+      <div class="card-body">
+         <h3 class="card-title">{{ object.product }}</h3>
+         <p class="card-text">Fornecedor: <strong>{{ object.supplier }}</strong></p>
+         <p class="card-text">Quantidade: <strong>{{ object.quantity }}</strong></p>
+         <p class="card-text">{{ object.supplier }}</p>
+      </div>
+   </div>
+   <a href="{% url 'inflow_list' %}" class="btn btn-secondary mt-3">Ver mais Entradas</a>
+</div>
+
+{% endblock %}

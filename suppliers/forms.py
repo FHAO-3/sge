@@ -16,7 +16,7 @@ class SupplierForm(forms.ModelForm):
         # 'widgets' vamos passar um lista de cada campo eo que queremos em cada campo
         # 'forms.TextInput' e 'forms.Textarea' são usados para renderizar os campos de texto
         # 'attrs' é um dicionario que podemos passar para adicionar atributos HTML aos campos
-        label = {
+        labels = {
             'name': 'Nome',
             'description': 'Descrição',
         }

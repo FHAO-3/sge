@@ -2,7 +2,7 @@ from django import forms
 from outflows.models import Outflow
 from django.core.exceptions import ValidationError
 
- 
+
 class OutflowForm(forms.ModelForm):
     class Meta:
         '''

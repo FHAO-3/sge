@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Deletar {{ object.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+   <h3 class="display-6"> Apagar {{ object.name }}</h3>
+   <div class="card">
+      <div class="card-body">
+        <p class="card-text">Tem certeza que deseja excluir o produto <strong>{{ object.title }}</strong>?</p>
+      
+      <form method="post">
+         {% csrf_token %}
+         <button type="submit" class="btn btn-danger mt-3">Deletar</button>
+      </form>
+      </div>
+   </div>
+   <a href="{% url 'product_list' %}" class="btn btn-secondary mt-3">Cancelar e voltar para lista de produtos</a>
+</div>
+
+{% endblock %}

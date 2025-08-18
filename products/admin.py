@@ -5,4 +5,4 @@ from products.models import Product
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'serie_number',)
-    search_fields = ('title',)
+    search_fields = ('title', 'serie_number',)

@@ -6,6 +6,10 @@ Lista de Produtos
 
 {% block content %}
 
+{% include 'components/_product_metrics.html' %}
+
+<div class="mb-4"></div>
+
 <div class="row mb-3">
 
    <div class="col-md-6">
@@ -19,14 +23,13 @@ Lista de Produtos
          </div>
       </form>
    </div>
-
    <div class="col-md-6">
       <a href="{% url 'product_create' %}" class="btn btn-success float-end">
          Adicionar nova Produto
          <i class="bi bi-plus"></i>
       </a>
    </div>
-
+   
 </div>
 
 <div class="row mb-3">

@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from categories.models import Category
 from brands.models import Brand
 from . import models, forms
+from app.metrics import get_product_metrics
 
 
 class ProductListView(ListView):
@@ -47,8 +48,10 @@ class ProductListView(ListView):
         '''
         context = super().get_context_data(**kwargs)
         # `super().get_contex_data(**kwargs)` é o contexto original
+        # abaixo estamos adicionano mais coisas ao contexto
         context['categories'] = Category.objects.all()
         context['brands'] = Brand.objects.all()
+        context['product_metrics'] = get_product_metrics()
         return context
 
 

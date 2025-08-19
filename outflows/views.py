@@ -1,6 +1,7 @@
 from django.views.generic import ListView, CreateView, DetailView
-from . import models, forms
 from django.urls import reverse_lazy
+from . import models, forms
+from app.metrics import get_sales_metrics
 
 
 class OutflowListView(ListView):
@@ -22,6 +23,11 @@ class OutflowListView(ListView):
             queryset = queryset.filter(product__title__icontains=product)
             # 'product__title__icontains' em `product` pega o `title` e filtra usando o `icontains` que seja igual ao `prodct` passado
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) 
+        context['sales_metrics'] = get_sales_metrics()
+        return context
 
 
 class OutflowCreateView(CreateView):

@@ -29,7 +29,7 @@ class ProductForm(forms.ModelForm):
             'category': 'Categoria',
             'brand': 'Marca',
             'description': 'Descrição',
-            'serie_number': 'Número de sé rie',
+            'serie_number': 'Número de série',
             'cost_price': 'Preço de custo',
             'selling_price': 'Preço de venda',
         }

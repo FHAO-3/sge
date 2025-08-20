@@ -1,5 +1,6 @@
+from django.db.models import Sum, F
+from django.utils import timezone
 from django.utils.formats import number_format
-from django.db.models import Sum
 from products.models import Product
 from outflows.models import Outflow
 
@@ -36,4 +37,44 @@ def get_sales_metrics():
         total_products_solde=number_format(total_products_solde, decimal_pos=2, force_grouping=True),
         total_seles_value=number_format(total_sales_value, decimal_pos=2, force_grouping=True),
         total_sales_profit=number_format(total_sales_profit, decimal_pos=2, force_grouping=True)
+    )
+
+
+def get_daily_sales_data():
+    today = timezone.now().date()
+    dates = [str(today - timezone.timedelta(days=i)) for i in range(6, -1, -1)]
+    # lista de datas que é o dia de hoje mais 6 dias atras
+    values = list()
+
+    for date in dates:
+        sales_total = Outflow.objects.filter(
+            created_at__date=date  # buscando via ORM qual foi o némero de `vendas` do dia
+        ).aggregate(  # vamos realizar um calculo por isso usamos o `aggregate` como uma `subquery` calculada
+            total_sales=Sum(F('product__selling_price') * F('quantity'))  # `F` Ele serve para referenciar o valor de um campo diretamente no banco de dados
+        )['total_sales'] or 0
+
+        values.append(float(sales_total))
+
+    return dict(
+        dates=dates,
+        values=values,
+    )
+
+
+def daily_sales_quantity_data():
+    today = timezone.now().date()
+    dates = [str(today - timezone.timedelta(days=i)) for i in range(6, -1, -1)]
+    # lista de datas que é o dia de hoje mais 6 dias atras
+    quantities = list()
+
+    for date in dates:
+        sales_quantities = Outflow.objects.filter(
+            created_at__date=date
+        ).count()
+        # acima estamos pegando a qunatitdade de vendas
+        quantities.append(sales_quantities)
+
+    return dict(
+        dates=dates,
+        values=quantities,
     )

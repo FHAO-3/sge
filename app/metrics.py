@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.utils.formats import number_format
 from products.models import Product
 from outflows.models import Outflow
+from categories.models import Category
+from brands.models import Brand
 
 
 def get_product_metrics():
@@ -34,7 +36,7 @@ def get_sales_metrics():
     total_sales_profit = total_sales_value - total_sales_cost
     return dict(
         total_sales=number_format(total_sales),
-        total_products_solde=number_format(total_products_solde, decimal_pos=2, force_grouping=True),
+        total_products_solde=total_products_solde, decimal_pos=2, force_grouping=True,
         total_seles_value=number_format(total_sales_value, decimal_pos=2, force_grouping=True),
         total_sales_profit=number_format(total_sales_profit, decimal_pos=2, force_grouping=True)
     )
@@ -61,20 +63,11 @@ def get_daily_sales_data():
     )
 
 
-def daily_sales_quantity_data():
-    today = timezone.now().date()
-    dates = [str(today - timezone.timedelta(days=i)) for i in range(6, -1, -1)]
-    # lista de datas que é o dia de hoje mais 6 dias atras
-    quantities = list()
+def get_graphic_product_category_metric():
+    categories = Category.objects.all()
+    return {category.name: Product.objects.filter(category=category).count() for category in categories}
 
-    for date in dates:
-        sales_quantities = Outflow.objects.filter(
-            created_at__date=date
-        ).count()
-        # acima estamos pegando a qunatitdade de vendas
-        quantities.append(sales_quantities)
 
-    return dict(
-        dates=dates,
-        values=quantities,
-    )
+def get_graphic_product_brand_metric():
+    brands = Brand.objects.all()
+    return {brand.name: Product.objects.filter(brand=brand).count() for brand in brands}

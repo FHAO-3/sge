@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     'suppliers'
 ]
 
+LOGIN_URL = 'login'
+
+LOGIN_REDIRECT_URL = '/'  # apos logar é so voltar para a tela inicial do site
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

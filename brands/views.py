@@ -1,9 +1,11 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
-from . import models, forms
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from . import models, forms
 
 
-class BrandListView(ListView):
+# OBSERVE QUE O `LoginRequiredMixin` ESTÁ ANTES DE `ListView` POIS TEM UMA ORDEM DE HERANÇA E É UMA VERIFICAÇÃO DE LOGIN
+class BrandListView(LoginRequiredMixin, ListView):
     model = models.Brand
     template_name = 'brand_list.html'
     context_object_name = 'brands'
@@ -23,7 +25,7 @@ class BrandListView(ListView):
         return queryset
 
 
-class BrandCreateView(CreateView):
+class BrandCreateView(LoginRequiredMixin, CreateView):
     model = models.Brand
     form_class = forms.BrandForm
     template_name = 'brand_create.html'
@@ -32,19 +34,19 @@ class BrandCreateView(CreateView):
     # 'brands_list' é o nome da url que queremos redirecionar apos o form ser salvo com sucesso
 
 
-class BrandDetailView(DetailView):
+class BrandDetailView(LoginRequiredMixin, DetailView):
     model = models.Brand
     template_name = 'brand_detail.html'
 
 
-class BrandUpdateView(UpdateView):
+class BrandUpdateView(LoginRequiredMixin, UpdateView):
     model = models.Brand
     form_class = forms.BrandForm
     template_name = 'brand_update.html'
     success_url = reverse_lazy('brands_list')
 
 
-class BrandDeleteView(DeleteView):
+class BrandDeleteView(LoginRequiredMixin, DeleteView):
     model = models.Brand
     template_name = 'brand_delete.html'
     success_url = reverse_lazy('brands_list')

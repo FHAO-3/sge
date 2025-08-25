@@ -1,9 +1,10 @@
 from django.views.generic import ListView, CreateView, DetailView
-from . import models, forms
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from . import models, forms
 
 
-class InflowListView(ListView):
+class InflowListView(LoginRequiredMixin, ListView):
     model = models.Inflow
     template_name = 'inflow_list.html'
     context_object_name = 'inflows'
@@ -24,7 +25,7 @@ class InflowListView(ListView):
         return queryset
 
 
-class InflowCreateView(CreateView):
+class InflowCreateView(LoginRequiredMixin, CreateView):
     model = models.Inflow
     form_class = forms.InflowForm
     template_name = 'inflow_create.html'
@@ -33,6 +34,6 @@ class InflowCreateView(CreateView):
     # 'inflow_list' é o nome da url que queremos redirecionar apos o form ser salvo com sucesso
 
 
-class InflowDetailView(DetailView):
+class InflowDetailView(LoginRequiredMixin, DetailView):
     model = models.Inflow
     template_name = 'inflow_detail.html'

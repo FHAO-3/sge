@@ -1,8 +1,11 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from . import metrics
 import json
 
 
+# vamos lembrar que quando passamos so o nome igual no caso do `login_url` e o `name` que colcamos em URLs
+@login_required(login_url='login')
 def home(request):
     daily_sales_data = metrics.get_daily_sales_data()
     daily_sales_quantity_data = metrics.get_daily_sales_data()

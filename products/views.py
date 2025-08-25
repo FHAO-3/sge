@@ -1,12 +1,14 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from categories.models import Category
 from brands.models import Brand
 from . import models, forms
 from app.metrics import get_product_metrics
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = models.Product
     template_name = 'product_list.html'
     context_object_name = 'products'
@@ -55,7 +57,7 @@ class ProductListView(ListView):
         return context
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = models.Product
     form_class = forms.ProductForm
     template_name = 'product_create.html'
@@ -64,19 +66,19 @@ class ProductCreateView(CreateView):
     # 'product_list' é o nome da url que queremos redirecionar apos o form ser salvo com sucesso
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = models.Product
     template_name = 'product_detail.html'
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = models.Product
     form_class = forms.ProductForm
     template_name = 'product_update.html'
     success_url = reverse_lazy('product_list')
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = models.Product
     template_name = 'product_delete.html'
     success_url = reverse_lazy('product_list')

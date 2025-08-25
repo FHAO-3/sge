@@ -1,10 +1,11 @@
 from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from . import models, forms
 from app.metrics import get_sales_metrics
 
 
-class OutflowListView(ListView):
+class OutflowListView(LoginRequiredMixin, ListView):
     model = models.Outflow
     template_name = 'outflow_list.html'
     context_object_name = 'outflows'
@@ -30,7 +31,7 @@ class OutflowListView(ListView):
         return context
 
 
-class OutflowCreateView(CreateView):
+class OutflowCreateView(LoginRequiredMixin, CreateView):
     model = models.Outflow
     form_class = forms.OutflowForm
     template_name = 'outflow_create.html'
@@ -39,6 +40,6 @@ class OutflowCreateView(CreateView):
     # 'outflow_list' é o nome da url que queremos redirecionar apos o form ser salvo com sucesso
 
 
-class OutflowDetailView(DetailView):
+class OutflowDetailView(LoginRequiredMixin, DetailView):
     model = models.Outflow
     template_name = 'outflow_detail.html'

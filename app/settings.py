@@ -47,8 +47,9 @@ INSTALLED_APPS = [
 ]
 
 LOGIN_URL = 'login'
-
 LOGIN_REDIRECT_URL = '/'  # apos logar é so voltar para a tela inicial do site
+
+LOGOUT_REDIRECT_URL = '/login/'  # onde vai direcionar apos fazer o `logout`
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -33,19 +33,19 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
     # 'category_list' é o nome da url que queremos redirecionar apos o form ser salvo com sucesso
 
 
-class CategoryDetailView(LoginRequiredMixin, LoginRequiredMixin, DetailView):
+class CategoryDetailView(LoginRequiredMixin, DetailView):
     model = models.Category
     template_name = 'category_detail.html'
 
 
-class CategoryUpdateView(LoginRequiredMixin, LoginRequiredMixin, UpdateView):
+class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     model = models.Category
     form_class = forms.CategoryForm
     template_name = 'category_update.html'
     success_url = reverse_lazy('category_list')
 
 
-class CategoryDeleteView(LoginRequiredMixin, LoginRequiredMixin, DeleteView):
+class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     model = models.Category
     template_name = 'category_delete.html'
     success_url = reverse_lazy('category_list')

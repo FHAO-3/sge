@@ -1,17 +1,18 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, CreateView, DetailView
-from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
-from . import models, forms
 from app.metrics import get_sales_metrics
+from django.urls import reverse_lazy
+from . import models, forms
 
 
-class OutflowListView(LoginRequiredMixin, ListView):
+class OutflowListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = models.Outflow
     template_name = 'outflow_list.html'
     context_object_name = 'outflows'
     # 'context_object_name' usado ao inves de mandar o `render`
     paginate_by = 10
     # 'paginate_by' não pode mostrar mais de (neste caso) 10 nomes da lista
+    permission_required = 'outflows.view_outflow'
 
     def get_queryset(self):
         '''
@@ -31,15 +32,17 @@ class OutflowListView(LoginRequiredMixin, ListView):
         return context
 
 
-class OutflowCreateView(LoginRequiredMixin, CreateView):
+class OutflowCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Outflow
     form_class = forms.OutflowForm
     template_name = 'outflow_create.html'
     success_url = reverse_lazy('outflow_list')
     # reverse_lazy usado para evitar problemas de importação circular de urls e views no Django (é uma boa prática usar ele em class-based views)
     # 'outflow_list' é o nome da url que queremos redirecionar apos o form ser salvo com sucesso
+    permission_required = 'outflows.add_outflow'
 
 
-class OutflowDetailView(LoginRequiredMixin, DetailView):
+class OutflowDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.Outflow
     template_name = 'outflow_detail.html'
+    permission_required = 'outflows.view_outflow'

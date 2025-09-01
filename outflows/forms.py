@@ -1,6 +1,6 @@
+from django.core.exceptions import ValidationError
 from django import forms
 from outflows.models import Outflow
-from django.core.exceptions import ValidationError
 
 
 class OutflowForm(forms.ModelForm):
@@ -33,6 +33,6 @@ class OutflowForm(forms.ModelForm):
 
             if quantity > product.quantity:
                 raise ValidationError(
-                    f'A quantitdade disponivel eme estoque para o produto {product.title} e de {product.quantity}'
+                    f'A quantitdade disponivel em estoque para o produto {product.title} e de {product.quantity}'
                 )
             return quantity

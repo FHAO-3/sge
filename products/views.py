@@ -1,6 +1,6 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from categories.models import Category
 from brands.models import Brand
@@ -8,13 +8,14 @@ from . import models, forms
 from app.metrics import get_product_metrics
 
 
-class ProductListView(LoginRequiredMixin, ListView):
+class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = models.Product
     template_name = 'product_list.html'
     context_object_name = 'products'
     # 'context_object_name' usado ao inves de mandar o `render`
     paginate_by = 10
     # 'paginate_by' não pode mostrar mais de (neste caso) 10 nomes da lista
+    permission_required = 'products.view_product'
 
     def get_queryset(self):
         '''
@@ -57,28 +58,32 @@ class ProductListView(LoginRequiredMixin, ListView):
         return context
 
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Product
     form_class = forms.ProductForm
     template_name = 'product_create.html'
     success_url = reverse_lazy('product_list')
     # reverse_lazy usado para evitar problemas de importação circular de urls e views no Django (é uma boa prática usar ele em class-based views)
     # 'product_list' é o nome da url que queremos redirecionar apos o form ser salvo com sucesso
+    permission_required = 'products.add_product'
 
 
-class ProductDetailView(LoginRequiredMixin, DetailView):
+class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.Product
     template_name = 'product_detail.html'
+    permission_required = 'products.view_product'
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = models.Product
     form_class = forms.ProductForm
     template_name = 'product_update.html'
     success_url = reverse_lazy('product_list')
+    permission_required = 'products.change_product'
 
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = models.Product
     template_name = 'product_delete.html'
     success_url = reverse_lazy('product_list')
+    permission_required = 'products.delete_product'

@@ -1,16 +1,17 @@
 from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from . import models, forms
 
 
-class InflowListView(LoginRequiredMixin, ListView):
+class InflowListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = models.Inflow
     template_name = 'inflow_list.html'
     context_object_name = 'inflows'
     # 'context_object_name' usado ao inves de mandar o `render`
     paginate_by = 10
     # 'paginate_by' não pode mostrar mais de (neste caso) 10 nomes da lista
+    permission_required = 'inflows.view_inflow'
 
     def get_queryset(self):
         '''
@@ -25,15 +26,17 @@ class InflowListView(LoginRequiredMixin, ListView):
         return queryset
 
 
-class InflowCreateView(LoginRequiredMixin, CreateView):
+class InflowCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Inflow
     form_class = forms.InflowForm
     template_name = 'inflow_create.html'
     success_url = reverse_lazy('inflow_list')
     # reverse_lazy usado para evitar problemas de importação circular de urls e views no Django (é uma boa prática usar ele em class-based views)
     # 'inflow_list' é o nome da url que queremos redirecionar apos o form ser salvo com sucesso
+    permission_required = 'inflows.add_inflow'
 
 
-class InflowDetailView(LoginRequiredMixin, DetailView):
+class InflowDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.Inflow
     template_name = 'inflow_detail.html'
+    permission_required = 'inflows.view_inflow'

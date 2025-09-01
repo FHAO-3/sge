@@ -47,12 +47,16 @@ Lista de Fornecedores
                <a href="{% url 'supplier_detail' supplier.id %}" class="btn btn-info btn-sm">
                   <i class="bi bi-eye"></i>
                </a>
+               {% if perms.suppliers.change_supplier %}
                <a href="{% url 'supplier_update' supplier.id %}" class="btn btn-warning btn-sm">
                   <i class="bi bi-pencil"></i>
                </a>
-               <a href="{% url 'supplier_delete' supplier.id %}" class="btn btn-danger btn-sm">
-                  <i class="bi bi-trash"></i>
-               </a>
+               {% endif %}
+               {% if perms.suppliers.delete_supplier %}
+                  <a href="{% url 'supplier_delete' supplier.id %}" class="btn btn-danger btn-sm">
+                     <i class="bi bi-trash"></i>
+                  </a>
+               {% endif %}
             </td>
          </tr>
          {% endfor %}

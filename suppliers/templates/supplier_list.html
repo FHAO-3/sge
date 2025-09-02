@@ -17,13 +17,15 @@ Lista de Fornecedores
          </div>
       </form>
    </div>
-
-   <div class="col-md-6">
-      <a href="{% url 'supplier_create' %}" class="btn btn-success float-end">
-         Adicionar novo fornecedor
-         <i class="bi bi-plus"></i>
-      </a>
-   </div>
+   
+   {% if pems.supplier.add_supplier %}
+      <div class="col-md-6">
+         <a href="{% url 'supplier_create' %}" class="btn btn-success float-end">
+            Adicionar novo fornecedor
+            <i class="bi bi-plus"></i>
+         </a>
+      </div>
+   {% endif %}
 
 </div>
 

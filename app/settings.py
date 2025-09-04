@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'inflows',
     'outflows',
     'products',
-    'suppliers'
+    'suppliers',
+    # instaled
+    'rest_framework',
 ]
 
 LOGIN_URL = 'login'

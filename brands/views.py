@@ -1,7 +1,10 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
-from . import models, forms
+
+from rest_framework import generics
+
+from . import models, forms, serializers
 
 
 # OBSERVE QUE O `LoginRequiredMixin` ESTÁ ANTES DE `ListView` POIS TEM UMA ORDEM DE HERANÇA E É UMA VERIFICAÇÃO DE LOGIN
@@ -55,3 +58,14 @@ class BrandDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     template_name = 'brand_delete.html'
     success_url = reverse_lazy('brands_list')
     permission_required = 'brands.delete_brand'
+
+
+# Views API
+class BrandCreateListAPIView(generics.ListCreateAPIView):
+    queryset = models.Brand.objects.all()
+    serializer_class = serializers.BrandSerializers
+
+
+class BrandRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Brand.objects.all()
+    serializer_class = serializers.BrandSerializers

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # my apps
+    'authentication',
     'brands',
     'categories',
     'inflows',
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'suppliers',
     # instaled
     'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 LOGIN_URL = 'login'
@@ -134,3 +137,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),  # configuração do rest framework para usar o JWT como autenticação padrão
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',  # aplicado somente a views que vem do `DRF`
+        'rest_framework.permissions.DjangoModelPermissions',  # usado para verificar a permição de acesso de cada usuario
+    ),
+}
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}  # tempo de duração de cada tokem

@@ -13,7 +13,7 @@ def home(request):
     graphic_product_brand_metric = metrics.get_graphic_product_brand_metric()
     product_metrics = metrics.get_product_metrics()
     sales_metrics = metrics.get_sales_metrics()
-    
+
     context = {
         'product_metrics': product_metrics,
         'sales_metrics': sales_metrics,

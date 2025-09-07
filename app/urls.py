@@ -12,6 +12,8 @@ urlpatterns = [
     # acessar a `url/login/` via dar erro pois o template padrão de login nao está no diretorio criado porm nos
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
+    path('api/v1/', include('authentication.urls')),
+
     path('', views.home, name='home'),
     path('', include('brands.urls')),
     path('', include('categories.urls')),

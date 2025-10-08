@@ -1,0 +1,23 @@
+# quando usamos o `Docker Compose` não precisamos crar uma `Rede` pois o `Docker Compose` sabe que tem que roar tudo na mesma rede, mas tem como separar por redes mesmo usando o `Docker Compose`
+services:
+  sge_web:
+    build: .  # passamos um ponto pois o 'dockerfile' está no mesmo diretorio que o arquivo da imamgem que vai ser buildada
+    restart: always  # usado quando tenta abri e da erro porem ele reinicia ate funcionar 
+    ports:
+      - 8000:8000
+    depends_on:
+      - sge_db
+
+  sge_db:
+    image: postgres:latest  # 'imagem:versão' tem que ser igual a imagem que está no docker 
+    ports: 
+      - 5432:5432
+    volumes:  # como se estivece plugando um pendrie 
+      - postgres_data:/var/lib/postgresql/data/
+    environment:  # as variaveis de ambiente
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=sge
+
+volumes:
+  postgres_data:  # é o volume que sera armazenado 

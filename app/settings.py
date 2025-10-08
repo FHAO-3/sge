@@ -91,6 +91,14 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # biblioteca que vai fazer conexão com o banco de dados
+        'NAME': 'sge_db',  # nome do banco de dados
+        'USER': 'postgres',  # tem que estar igual foi informado no comando
+        'PASSWORD': 'postgres',  # tem que colocar igual foi colocado no comando
+        'HOST': 'sge_db',  # nome do container
+        'PORT': '5432',  # porta de acesso ao banco de dados
+    },
+    'dev': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }

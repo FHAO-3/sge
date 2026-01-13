@@ -59,7 +59,7 @@ class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView
     permission_required = 'categories.delete_category'
 
 
-class CategoryCreateListAPIView(generics.ListCreateAPIView):
+class CategoryListCreateAPIView(generics.ListCreateAPIView):
     queryset = models.Category.objects.all()
     serializer_class = serializers.CategorySerializers
 

@@ -1,6 +1,8 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from datetime import datetime
+
 from . import models
 
 from services.notify import Notify
@@ -27,8 +29,10 @@ def update_product_quantity(sender, instance, created, **kwargs):
 def send_outflow_event(sender, instance, **kwargs):
     notify = Notify()
     data = {
-        'product': instance.product,
+        'event_type': 'create_outflow',
+        'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'product': str(instance.product),
+        # colocado como uma string pois o product é um objeto e nao é possivel parsear quando fazemos um `post`
         'quantity': instance.quantity,
     }
     notify.send_event(data)
-    print('>> saida')

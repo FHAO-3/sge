@@ -5,11 +5,11 @@ import requests
 class Notify:
 
     def __init__(self):
-        self.__base_url = 'https://webhook.site'
+        self.__base_url = 'http://localhost:8001'
 
-    def send_event(self, data):
+    def send_order_event(self, data):
         requests.post(
-            url=f'{self.__base_url}/35648e9a-b03d-4486-ba3d-0c3d8307abda',
+            url=f'{self.__base_url}/api/v1/webhooks/order',
             # esse é o link que o site webhook que gerou para fazermos testes
             json=data,
             # qunado vamos fazer um post não passamos `data` como parametro passamos `json`

@@ -1,3 +1,9 @@
 from django.db import models
 
-# Create your models here.
+
+class AIResult(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    result = models.TextField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['-created_at']

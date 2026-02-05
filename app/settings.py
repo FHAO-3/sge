@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'outflows',
     'products',
     'suppliers',
+    'ai',
     # instaled
     'rest_framework',
     'rest_framework_simplejwt',

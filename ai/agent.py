@@ -5,6 +5,7 @@ from django.core import serializers
 from ai.prompts import SYSTEM_PROMPT, USER_PROMPT
 from outflows.models import Outflow
 from products.models import Product
+from ai.models import AIResult
 
 from openai import OpenAI
 import json
@@ -36,9 +37,10 @@ class SGEAgent:
                 },
                 {
                     'role': 'user',
-                    'content': USER_PROMPT.replace('{{data}}', self.__get_data)
+                    'content': USER_PROMPT.replace('{{data}}', self.__get_data())
                 },
             ],
         )
         result = response.output_text
-        return result
+        AIResult.objects.create(result=result)
+        # salvando os dados na base de dados

@@ -1,9 +1,8 @@
-sge-venv
-db.sqlite3
-media
 __pycache__/
+sge-venv
+media
+teste.html
 *.pyc
 .DS_Store
 *.env
 .python-version
-teste.html

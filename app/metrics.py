@@ -36,7 +36,7 @@ def get_sales_metrics():
     total_sales_profit = total_sales_value - total_sales_cost
     return dict(
         total_sales=number_format(total_sales),
-        total_products_solde=total_products_solde, decimal_pos=2, force_grouping=True,
+        total_products_solde=number_format(total_products_solde, decimal_pos=2, force_grouping=True),
         total_seles_value=number_format(total_sales_value, decimal_pos=2, force_grouping=True),
         total_sales_profit=number_format(total_sales_profit, decimal_pos=2, force_grouping=True)
     )

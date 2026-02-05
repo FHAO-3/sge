@@ -44,5 +44,5 @@ def send_outflow_event(sender, instance, created, **kwargs):
             }
             notify.send_order_event(data)
     except:
-        # cas ode agum erro somente ignorar
+        # caso de algum erro somente ignorar
         pass

@@ -13,7 +13,7 @@ class OutflowForm(forms.ModelForm):
         widgets = {
             'product': forms.Select(attrs={'class': 'form-control'}),
             'quantity': forms.NumberInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows ': 3}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
         # 'widgets' vamos passar um lista de cada campo eo que queremos em cada campo
         # 'attrs' é um dicionario que podemos passar para adicionar atributos HTML aos campos
@@ -27,12 +27,13 @@ class OutflowForm(forms.ModelForm):
         }
         # 'label' é usado para definir o texto do label de cada campo
 
-        def clean_quantity(self):
-            quantity = self.cleanned_data.get('quantity')
-            product = self.cleanned_data.get('product')
+    def clean_quantity(self):
+        quantity = self.cleaned_data.get('quantity')
+        product = self.cleaned_data.get('product')
 
+        if product and quantity is not None:
             if quantity > product.quantity:
                 raise ValidationError(
-                    f'A quantitdade disponivel em estoque para o produto {product.title} e de {product.quantity}'
+                    f'A quantidade disponível em estoque para o produto {product.title} é de {product.quantity}'
                 )
-            return quantity
+        return quantity

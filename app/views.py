@@ -16,6 +16,8 @@ def home(request):
     product_metrics = metrics.get_product_metrics()
     sales_metrics = metrics.get_sales_metrics()
     ai_result = AIResult.objects.first().result
+    # `.first()` usado para pegar o primeiro resultado
+    
     context = {
         'product_metrics': product_metrics,
         'sales_metrics': sales_metrics,

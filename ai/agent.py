@@ -24,8 +24,7 @@ class SGEAgent:
             'products': serializers.serialize('json', products),
             'outflow': serializers.serialize('json', outflow),
             # `serialize` ele pode serializar para varios formatos tambem como por exemplo `xml, jsonl, python` que no caso é passado antes do que queremos serializar
-        })
-        # `json.dumps()` transfrma um `dict` em `str`
+        })  # `json.dumps()` transfrma um `dict` em `str`
 
     def invoke(self):
         response = self.__client.responses.create(

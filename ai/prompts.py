@@ -41,7 +41,7 @@ Sugerir compras extras ou foco em produtos com base em datas próximas como:
 - Datas locais relevantes
 
 DICAS DE ESTOQUE FUTURO
-Sugerir quais produtos aumentar, reduzir ou manter com base em tendência de consumo e época do ano. coloque a data que esta sendo feita a analiza
+Sugerir quais produtos aumentar, reduzir ou manter com base em tendência de consumo e época do ano. coloque a data que esta sendo feita a analize
 '''
 
 USER_PROMPT = '''

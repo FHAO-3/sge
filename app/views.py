@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+
 from . import metrics
+from ai.models import AIResult
 import json
 
 
@@ -13,7 +15,7 @@ def home(request):
     graphic_product_brand_metric = metrics.get_graphic_product_brand_metric()
     product_metrics = metrics.get_product_metrics()
     sales_metrics = metrics.get_sales_metrics()
-
+    ai_result = AIResult.objects.first().result
     context = {
         'product_metrics': product_metrics,
         'sales_metrics': sales_metrics,
@@ -21,5 +23,6 @@ def home(request):
         'daily_sales_quantity_data': json.dumps(daily_sales_quantity_data),
         'product_count_by_category': json.dumps(graphic_product_category_metric),
         'product_count_by_brand': json.dumps(graphic_product_brand_metric),
+        'ai_result': ai_result,
     }
     return render(request, 'home.html', context)

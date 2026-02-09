@@ -7,6 +7,7 @@ SGE - Home
 {% block content %}
 <h1 class="md-6">Tela de Dashboards</h1>
 {% if perms.products.view_product and perms.inflows.view_inflow %}
+   {% include 'components/_ai_result.html' %}  <!-- dicas do agente de ia -->
    {% include 'components/_product_metrics.html' %}
 {% endif %}
 {% if perms.outflows.view_outflow %}
@@ -23,7 +24,6 @@ SGE - Home
          <h5 class="text-center mb-3">Quantidade de Vendas diarias</h5>
          <canvas id="dailySalesQuantityChart"></canvas> <!-- onde vai ficar o grafico -->
       </div>
-
       <script>
          document.addEventListener("DOMContentLoaded", function () {  // função utilizada para manipular o DOM do java script para renderizar o grafico
             var dailySalesData = JSON.parse('{{ daily_sales_data|safe }}');  // dados do primeiro grafico

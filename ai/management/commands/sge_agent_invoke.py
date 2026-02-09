@@ -5,9 +5,11 @@ from ai.agent import SGEAgent
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
+        self.stdout.write(
+            msg='Iniciando a analize ...'
+        )
         agent = SGEAgent()
         agent.invoke()
-
         self.stdout.write(
-            self.style.SUCCESS('SGE Agente invocado com sucesso!')
+            self.style.SUCCESS('Analize realizada com sucesso!')
         )

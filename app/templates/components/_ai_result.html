@@ -1,0 +1,20 @@
+<div class="accordion" id="accordionExample">
+    <!-- 'accordion' é o nome do efeito que minimiza essa lista -->
+  <div class="accordion-item">
+    <!-- unico item que vai ter aqui -->
+    <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+        aria-expanded="false" aria-controls="collapseTwo">
+            <!-- seta que vamos clicar para minimizar a lista -->
+        SGE Agent
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <!-- onde vai ficar o texto gerado pela ia -->
+        <div class="accordion-body">
+        {{ ai_result|linebreaks }}
+        <!-- '|linebreaks' usado em django para deixar o texto separado por paragrafo sem o '|linebreaks' o texto todo vira um paragrafo do -->
+      </div>
+    </div>
+  </div>
+</div>

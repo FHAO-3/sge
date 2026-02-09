@@ -69,6 +69,15 @@
               </a>
             </li>
           {% endif %}
+          {% if perms.ai.view_ai %}
+            <li>
+              <a href="{% url 'ai_list' %}" class="nav-link px-0 align-middle">
+                <i class="bi bi-envelope-paper"></i>
+                <span class="ms-1">Dicas GPT</span>
+                <!-- -->
+              </a>
+            </li>
+          {% endif %}
           {% if user.is_authenticated %}
             <li class="nav-item">
               <form action="{% url 'logout' %}" method="post" id="logout-form" class="nav-link px-0 align-middle">

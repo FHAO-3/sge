@@ -6,3 +6,4 @@ teste.html
 .DS_Store
 *.env
 .python-version
+db.sqlite3
